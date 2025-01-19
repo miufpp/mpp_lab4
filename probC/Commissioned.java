@@ -1,6 +1,8 @@
 package lab4.probC;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +23,17 @@ public class Commissioned extends Employee{
 	}
 
 	@Override
-	double calcGrossPay(int month, int yr) {
-		return 0;
+	double calcGrossPay(int  month, int year) {
+		double totalOrderAmount = 0;
+        for(Order order : orders){
+//            if(order.getOrderDate() == month && order.getOrderDate().getYear() == year){
+                totalOrderAmount += order.getOrderAmount();
+//            }
+        }
+        return baseSalary + (commission * totalOrderAmount);
 	}
 
+	public void addNewOrder(String orderNo, LocalDate orderDate, double orderAmount){
+        orders.add(new Order(orderNo, orderDate, orderAmount, this));
+    }
 }
